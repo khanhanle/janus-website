@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Careers — JANUS SYSTEM</title>
+  <meta name="description" content="Open roles at JANUS SYSTEM." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;1,8..60,500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0c1f2e;
+      --ink-soft: #1a3348;
+      --sea: #1a6b7a;
+      --sea-deep: #0e4552;
+      --foam: #e8f2f4;
+      --sand: #d4a574;
+      --sand-bright: #e8c49a;
+      --white: #f7fafb;
+      --muted: rgba(12, 31, 46, 0.62);
+      --line: rgba(12, 31, 46, 0.12);
+      --font-display: "Source Serif 4", "Be Vietnam Pro", Georgia, serif;
+      --font-body: "Be Vietnam Pro", system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--foam);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      letter-spacing: 0.02em;
+      color: var(--white);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(247, 250, 251, 0.35);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .lang-btn {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: rgba(247, 250, 251, 0.7);
+      background: transparent;
+      border: none;
+      padding: 0.5rem 0.55rem;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-btn + .lang-btn {
+      border-left: 1px solid rgba(247, 250, 251, 0.35);
+    }
+
+    .lang-btn.is-active {
+      color: var(--ink);
+      background: var(--sand-bright);
+    }
+
+    .lang-btn:hover:not(.is-active) {
+      color: var(--white);
+      background: rgba(247, 250, 251, 0.08);
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(247, 250, 251, 0.88);
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(247, 250, 251, 0.35);
+      border-radius: 2px;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-link:hover {
+      background: rgba(247, 250, 251, 0.08);
+      border-color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .nav-cta {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--sand-bright);
+      padding: 0.55rem 1rem;
+      border-radius: 2px;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--sand);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 52svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      color: var(--white);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(12, 31, 46, 0.2) 0%,
+          rgba(12, 31, 46, 0.7) 100%
+        ),
+        linear-gradient(
+          115deg,
+          var(--sea-deep) 0%,
+          var(--ink) 42%,
+          #163a4a 70%,
+          var(--sea) 100%
+        );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .brand {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.85rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: rise 0.8s ease forwards 0.1s;
+    }
+
+    .lede {
+      font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+      max-width: 40ch;
+      color: rgba(247, 250, 251, 0.82);
+      opacity: 0;
+      transform: translateY(14px);
+      animation: rise 0.8s ease forwards 0.3s;
+    }
+
+    section {
+      padding: clamp(3.5rem, 8vw, 5.5rem) 1.5rem;
+    }
+
+    .section-wide {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sea);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-copy {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 42ch;
+      margin-bottom: 1.5rem;
+    }
+
+    .job-filters-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .job-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .location-filter {
+      margin-left: auto;
+    }
+
+    .location-select {
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      padding: 0.5rem 2rem 0.5rem 0.85rem;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%231a3348' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.7rem center;
+      transition: border-color 0.2s ease;
+    }
+
+    .location-select:hover,
+    .location-select:focus {
+      outline: none;
+      border-color: rgba(12, 31, 46, 0.35);
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .filter-btn {
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      padding: 0.5rem 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .filter-btn:hover {
+      border-color: rgba(12, 31, 46, 0.28);
+      background: rgba(12, 31, 46, 0.04);
+    }
+
+    .filter-btn.is-active {
+      color: var(--white);
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .jobs {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .job {
+      display: grid;
+      gap: 0.75rem;
+      padding: 1.35rem 0;
+      border-top: 1px solid var(--line);
+      transition: opacity 0.25s ease;
+    }
+
+    .job[hidden] {
+      display: none;
+    }
+
+    .job.is-last-visible {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .jobs-empty {
+      display: none;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .jobs-empty.is-visible {
+      display: block;
+    }
+
+    .job-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.75rem 1.25rem;
+    }
+
+    .job h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .job-meta {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .job > p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 52ch;
+    }
+
+    .job-apply {
+      display: inline-flex;
+      align-self: start;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--sand-bright);
+      padding: 0.55rem 1rem;
+      border-radius: 2px;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    .job-apply:hover {
+      background: var(--sand);
+      transform: translateY(-1px);
+    }
+
+    .close {
+      background: var(--ink);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .close h2 {
+      max-width: 18ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .close .section-copy {
+      color: rgba(247, 250, 251, 0.7);
+      margin: 0 auto 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      padding: 0.8rem 1.35rem;
+      border-radius: 2px;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--sand-bright);
+      color: var(--ink);
+    }
+
+    .btn-primary:hover {
+      background: var(--sand);
+      transform: translateY(-1px);
+    }
+
+    footer {
+      background: var(--ink);
+      color: rgba(247, 250, 251, 0.5);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.8125rem;
+      border-top: 1px solid rgba(247, 250, 251, 0.08);
+    }
+
+    footer strong {
+      font-family: var(--font-display);
+      font-weight: 400;
+      color: rgba(247, 250, 251, 0.85);
+    }
+
+    footer a:hover {
+      color: var(--white);
+    }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+
+      .brand, .lede {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body data-page-title="page.title.careers">
+  <header class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+
+    <nav class="nav">
+      <a class="nav-brand" href="index.html">JANUS SYSTEM</a>
+      <div class="nav-actions">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" class="lang-btn" data-lang="vn" aria-pressed="false">VN</button>
+        </div>
+        <a class="nav-link" href="index.html" data-i18n="nav.home">Home</a>
+        <a class="nav-cta" href="application.html" data-i18n="nav.apply">Apply</a>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <h1 class="brand" data-i18n="careers.title">Careers</h1>
+      <p class="lede" data-i18n="careers.lede">Open roles at JANUS SYSTEM. Join our team.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-wide">
+      <h2 data-i18n="careers.label">Open positions</h2>
+
+      <div class="job-filters-bar">
+        <div class="job-filters" role="group" aria-label="Filter by employment type" data-filter-group="type">
+          <button type="button" class="filter-btn is-active" data-filter="all" data-i18n="careers.filterAll">All</button>
+          <button type="button" class="filter-btn" data-filter="full-time" data-i18n="careers.filterFullTime">Full-time</button>
+          <button type="button" class="filter-btn" data-filter="part-time" data-i18n="careers.filterPartTime">Part-time</button>
+          <button type="button" class="filter-btn" data-filter="internship" data-i18n="careers.filterInternship">Internship</button>
+        </div>
+
+        <div class="location-filter">
+          <label class="visually-hidden" for="location-select" data-i18n="careers.filterLocAll">All locations</label>
+          <select id="location-select" class="location-select" data-filter-group="location" aria-label="Filter by location">
+            <option value="all" data-i18n="careers.filterLocAll" selected>All locations</option>
+            <option value="munich" data-i18n="careers.filterMunich">Munich</option>
+            <option value="vinh" data-i18n="careers.filterVinh">Vinh</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="jobs" id="jobs">
+        <article class="job" data-type="full-time" data-location="munich">
+          <div class="job-top">
+            <h3 data-i18n="careers.job1Title">Job title</h3>
+            <p class="job-meta" data-i18n="careers.job1Meta">Munich · Full-time</p>
+          </div>
+          <p data-i18n="careers.job1Copy">Job description placeholder.</p>
+          <a class="job-apply" href="application.html?job=1&type=full-time&location=munich" data-i18n="careers.apply">Apply</a>
+        </article>
+
+        <article class="job" data-type="full-time" data-location="vinh">
+          <div class="job-top">
+            <h3 data-i18n="careers.job2Title">Job title</h3>
+            <p class="job-meta" data-i18n="careers.job2Meta">Vinh · Full-time</p>
+          </div>
+          <p data-i18n="careers.job2Copy">Job description placeholder.</p>
+          <a class="job-apply" href="application.html?job=2&type=full-time&location=vinh" data-i18n="careers.apply">Apply</a>
+        </article>
+
+        <article class="job" data-type="full-time" data-location="munich">
+          <div class="job-top">
+            <h3 data-i18n="careers.job3Title">Job title</h3>
+            <p class="job-meta" data-i18n="careers.job3Meta">Munich · Full-time</p>
+          </div>
+          <p data-i18n="careers.job3Copy">Job description placeholder.</p>
+          <a class="job-apply" href="application.html?job=3&type=full-time&location=munich" data-i18n="careers.apply">Apply</a>
+        </article>
+
+        <article class="job" data-type="part-time" data-location="vinh">
+          <div class="job-top">
+            <h3 data-i18n="careers.job4Title">Job title</h3>
+            <p class="job-meta" data-i18n="careers.job4Meta">Vinh · Part-time</p>
+          </div>
+          <p data-i18n="careers.job4Copy">Job description placeholder.</p>
+          <a class="job-apply" href="application.html?job=4&type=part-time&location=vinh" data-i18n="careers.apply">Apply</a>
+        </article>
+
+        <article class="job" data-type="internship" data-location="munich">
+          <div class="job-top">
+            <h3 data-i18n="careers.job6Title">Job title</h3>
+            <p class="job-meta" data-i18n="careers.job6Meta">Munich · Internship</p>
+          </div>
+          <p data-i18n="careers.job6Copy">Job description placeholder.</p>
+          <a class="job-apply" href="application.html?job=6&type=internship&location=munich" data-i18n="careers.apply">Apply</a>
+        </article>
+
+        <p class="jobs-empty" id="jobs-empty" data-i18n="careers.empty" hidden>No openings in this category right now.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="section-wide">
+      <h2 data-i18n="careers.closeTitle">Don’t see your role?</h2>
+      <p class="section-copy" data-i18n="careers.closeCopy">Send a short note and résumé — we’re always interested in strong people.</p>
+      <a class="btn btn-primary" href="application.html" data-i18n="careers.apply">Apply</a>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>JANUS SYSTEM</strong> · <a href="index.html" data-i18n="careers.footerHome">Home</a></p>
+  </footer>
+
+  <script src="language.js"></script>
+  <script>
+    (function () {
+      const typeButtons = document.querySelectorAll('[data-filter-group="type"] .filter-btn');
+      const locationSelect = document.getElementById("location-select");
+      const jobs = document.querySelectorAll(".job");
+      const empty = document.getElementById("jobs-empty");
+
+      let activeType = "all";
+      let activeLocation = "all";
+
+      function applyFilters() {
+        let visible = 0;
+        let lastVisible = null;
+
+        jobs.forEach((job) => {
+          const typeOk = activeType === "all" || job.getAttribute("data-type") === activeType;
+          const locOk = activeLocation === "all" || job.getAttribute("data-location") === activeLocation;
+          const match = typeOk && locOk;
+          job.hidden = !match;
+          job.classList.remove("is-last-visible");
+          if (match) {
+            visible += 1;
+            lastVisible = job;
+          }
+        });
+
+        if (lastVisible) lastVisible.classList.add("is-last-visible");
+
+        const showEmpty = visible === 0;
+        empty.hidden = !showEmpty;
+        empty.classList.toggle("is-visible", showEmpty);
+      }
+
+      typeButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          activeType = btn.getAttribute("data-filter");
+          typeButtons.forEach((b) => {
+            const active = b.getAttribute("data-filter") === activeType;
+            b.classList.toggle("is-active", active);
+            b.setAttribute("aria-pressed", active ? "true" : "false");
+          });
+          applyFilters();
+        });
+      });
+
+      locationSelect.addEventListener("change", () => {
+        activeLocation = locationSelect.value;
+        applyFilters();
+      });
+
+      applyFilters();
+    })();
+  </script>
+</body>
+</html>

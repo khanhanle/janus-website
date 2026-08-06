@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apply — JANUS SYSTEM</title>
+  <meta name="description" content="Apply for a role at JANUS SYSTEM." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;1,8..60,500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0c1f2e;
+      --ink-soft: #1a3348;
+      --sea: #1a6b7a;
+      --sea-deep: #0e4552;
+      --foam: #e8f2f4;
+      --sand: #d4a574;
+      --sand-bright: #e8c49a;
+      --white: #f7fafb;
+      --muted: rgba(12, 31, 46, 0.62);
+      --line: rgba(12, 31, 46, 0.12);
+      --danger: #9b2c2c;
+      --font-display: "Source Serif 4", "Be Vietnam Pro", Georgia, serif;
+      --font-body: "Be Vietnam Pro", system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--foam);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      letter-spacing: 0.02em;
+      color: var(--white);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(247, 250, 251, 0.35);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .lang-btn {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: rgba(247, 250, 251, 0.7);
+      background: transparent;
+      border: none;
+      padding: 0.5rem 0.55rem;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-btn + .lang-btn {
+      border-left: 1px solid rgba(247, 250, 251, 0.35);
+    }
+
+    .lang-btn.is-active {
+      color: var(--ink);
+      background: var(--sand-bright);
+    }
+
+    .lang-btn:hover:not(.is-active) {
+      color: var(--white);
+      background: rgba(247, 250, 251, 0.08);
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(247, 250, 251, 0.88);
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(247, 250, 251, 0.35);
+      border-radius: 2px;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-link:hover {
+      background: rgba(247, 250, 251, 0.08);
+      border-color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 42svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      color: var(--white);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(12, 31, 46, 0.2) 0%, rgba(12, 31, 46, 0.72) 100%),
+        linear-gradient(115deg, var(--sea-deep) 0%, var(--ink) 42%, #163a4a 70%, var(--sea) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1.5rem 2.75rem;
+    }
+
+    .brand {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 7vw, 4rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .lede {
+      font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+      max-width: 42ch;
+      color: rgba(247, 250, 251, 0.82);
+    }
+
+    .role-chip {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--sand-bright);
+    }
+
+    section {
+      padding: clamp(2.5rem, 6vw, 4rem) 1.5rem clamp(4rem, 8vw, 5.5rem);
+    }
+
+    .section-wide {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .form-card {
+      display: grid;
+      gap: 1.35rem;
+    }
+
+    .form-row {
+      display: grid;
+      gap: 1.35rem;
+    }
+
+    @media (min-width: 640px) {
+      .form-row.two {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .field {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .field label {
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .req {
+      color: var(--sea);
+      font-weight: 500;
+    }
+
+    .hint {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      padding: 0.75rem 0.85rem;
+      width: 100%;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      outline: none;
+      border-color: var(--sea);
+      box-shadow: 0 0 0 3px rgba(26, 107, 122, 0.15);
+    }
+
+    .field textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .field.is-invalid input,
+    .field.is-invalid textarea,
+    .field.is-invalid .file-box {
+      border-color: var(--danger);
+    }
+
+    .error {
+      display: none;
+      font-size: 0.8rem;
+      color: var(--danger);
+    }
+
+    .field.is-invalid .error {
+      display: block;
+    }
+
+    .file-box {
+      display: grid;
+      gap: 0.5rem;
+      padding: 1rem;
+      background: var(--white);
+      border: 1px dashed rgba(12, 31, 46, 0.22);
+      border-radius: 2px;
+    }
+
+    .file-box input[type="file"] {
+      font-size: 0.875rem;
+      padding: 0;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .file-name {
+      font-size: 0.85rem;
+      color: var(--sea-deep);
+      font-weight: 500;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      padding: 0.8rem 1.35rem;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--sand-bright);
+      color: var(--ink);
+    }
+
+    .btn-primary:hover {
+      background: var(--sand);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(12, 31, 46, 0.35);
+    }
+
+    .success {
+      display: none;
+      padding: 1.5rem;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+    }
+
+    .success.is-visible {
+      display: block;
+    }
+
+    .success h2 {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .success p {
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .form-wrap.is-sent .form-card {
+      display: none;
+    }
+
+    .form-wrap.is-sent .success {
+      display: block;
+    }
+
+    footer {
+      background: var(--ink);
+      color: rgba(247, 250, 251, 0.5);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.8125rem;
+      border-top: 1px solid rgba(247, 250, 251, 0.08);
+    }
+
+    footer strong {
+      font-family: var(--font-display);
+      font-weight: 400;
+      color: rgba(247, 250, 251, 0.85);
+    }
+
+    footer a:hover { color: var(--white); }
+  </style>
+</head>
+<body data-page-title="page.title.application">
+  <header class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <nav class="nav">
+      <a class="nav-brand" href="index.html">JANUS SYSTEM</a>
+      <div class="nav-actions">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" class="lang-btn" data-lang="vn" aria-pressed="false">VN</button>
+        </div>
+        <a class="nav-link" href="index.html" data-i18n="nav.home">Home</a>
+        <a class="nav-link" href="careers.html" data-i18n="nav.careers">Join us</a>
+      </div>
+    </nav>
+    <div class="hero-content">
+      <h1 class="brand" data-i18n="apply.title">Apply</h1>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-wide form-wrap" id="form-wrap">
+      <div class="success" id="success">
+        <h2 data-i18n="apply.successTitle">Application sent</h2>
+        <p data-i18n="apply.successCopy">Thank you. We’ve received your application and will get back to you by email.</p>
+        <a class="btn btn-ghost" href="careers.html" data-i18n="apply.backCareers">Back to careers</a>
+      </div>
+
+      <!--
+        Replace COMPANY_EMAIL below with your real hiring inbox.
+        FormSubmit will email submissions (with CV attachment) there.
+        First submit triggers a one-time confirmation email from FormSubmit.
+      -->
+      <form
+        class="form-card"
+        id="application-form"
+        action="https://formsubmit.co/careers@janussystem.example"
+        method="POST"
+        enctype="multipart/form-data"
+        novalidate
+      >
+        <input type="hidden" name="_subject" id="email-subject" value="JANUS SYSTEM — Job application" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" id="form-next" value="" />
+        <input type="hidden" name="position" id="position-field" value="" />
+        <input type="hidden" name="employment_type" id="type-field" value="" />
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div class="form-row two">
+          <div class="field" data-field="first_name">
+            <label for="first_name"><span data-i18n="apply.firstName">First name</span> <span class="req">*</span></label>
+            <input id="first_name" name="first_name" type="text" autocomplete="given-name" required />
+            <p class="error" data-i18n="apply.required">This field is required.</p>
+          </div>
+          <div class="field" data-field="last_name">
+            <label for="last_name"><span data-i18n="apply.lastName">Last name</span> <span class="req">*</span></label>
+            <input id="last_name" name="last_name" type="text" autocomplete="family-name" required />
+            <p class="error" data-i18n="apply.required">This field is required.</p>
+          </div>
+        </div>
+
+        <div class="form-row two">
+          <div class="field" data-field="email">
+            <label for="email"><span data-i18n="apply.email">Email</span> <span class="req">*</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+            <p class="error" data-i18n="apply.emailInvalid">Enter a valid email address.</p>
+          </div>
+          <div class="field" data-field="phone">
+            <label for="phone"><span data-i18n="apply.phone">Phone</span> <span class="req">*</span></label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+            <p class="error" data-i18n="apply.required">This field is required.</p>
+          </div>
+        </div>
+
+        <div class="form-row two">
+          <div class="field" data-field="city">
+            <label for="city" data-i18n="apply.city">City</label>
+            <input id="city" name="city" type="text" autocomplete="address-level2" />
+          </div>
+          <div class="field" data-field="linkedin">
+            <label for="linkedin" data-i18n="apply.linkedin">LinkedIn / portfolio</label>
+            <input id="linkedin" name="linkedin" type="url" />
+          </div>
+        </div>
+
+        <div class="field" data-field="motivation">
+          <label for="motivation" data-i18n="apply.motivation">Motivational letter</label>
+          <textarea id="motivation" name="motivational_letter" rows="6"></textarea>
+        </div>
+
+        <div class="field" data-field="cv">
+          <label for="cv"><span data-i18n="apply.cv">CV / résumé</span> <span class="req">*</span></label>
+          <p class="hint" data-i18n="apply.cvHint">Required. PDF or Word, max 5 MB.</p>
+          <div class="file-box">
+            <input id="cv" name="attachment" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required />
+            <p class="file-name" id="cv-name" hidden></p>
+          </div>
+          <p class="error" id="cv-error" data-i18n="apply.cvRequired">Please upload your CV to continue.</p>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn btn-primary" data-i18n="apply.submit">Send application</button>
+          <a class="btn btn-ghost" href="careers.html" data-i18n="apply.cancel">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>JANUS SYSTEM</strong> · <a href="index.html" data-i18n="nav.home">Home</a> · <a href="careers.html" data-i18n="nav.careers">Join us</a></p>
+  </footer>
+
+  <script src="language.js"></script>
+  <script>
+    (function () {
+      const JOB_KEYS = {
+        "1": "careers.job1Title",
+        "2": "careers.job2Title",
+        "3": "careers.job3Title",
+        "4": "careers.job4Title",
+        "6": "careers.job6Title",
+      };
+
+      const TYPE_KEYS = {
+        "full-time": "careers.filterFullTime",
+        "part-time": "careers.filterPartTime",
+        "internship": "careers.filterInternship",
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const jobId = params.get("job") || "";
+      const type = params.get("type") || "";
+      const sent = params.get("sent") === "1";
+
+      const formWrap = document.getElementById("form-wrap");
+      const form = document.getElementById("application-form");
+      const positionField = document.getElementById("position-field");
+      const typeField = document.getElementById("type-field");
+      const subjectField = document.getElementById("email-subject");
+      const nextField = document.getElementById("form-next");
+      const cvInput = document.getElementById("cv");
+      const cvName = document.getElementById("cv-name");
+
+      try {
+        const nextUrl = new URL(window.location.href);
+        nextUrl.search = "?sent=1";
+        nextField.value = nextUrl.toString();
+      } catch (_) {
+        nextField.value = "application.html?sent=1";
+      }
+
+      if (sent) {
+        formWrap.classList.add("is-sent");
+      }
+
+      function t(key) {
+        const lang = typeof getLang === "function" ? getLang() : "en";
+        return (translations[lang] && translations[lang][key]) || (translations.en && translations.en[key]) || "";
+      }
+
+      function syncRole() {
+        const titleKey = JOB_KEYS[jobId];
+        const typeKey = TYPE_KEYS[type];
+        const title = titleKey ? t(titleKey) : (params.get("role") || "");
+        const typeLabel = typeKey ? t(typeKey) : type;
+
+        positionField.value = title || "General application";
+        typeField.value = typeLabel || type || "";
+        subjectField.value = title
+          ? "JANUS SYSTEM — Application: " + title
+          : "JANUS SYSTEM — Job application";
+      }
+
+      const originalSetLang = window.setLang;
+      window.setLang = function (lang) {
+        originalSetLang(lang);
+        syncRole();
+      };
+
+      syncRole();
+
+      cvInput.addEventListener("change", () => {
+        const file = cvInput.files && cvInput.files[0];
+        if (file) {
+          cvName.hidden = false;
+          cvName.textContent = file.name;
+          cvInput.closest(".field").classList.remove("is-invalid");
+        } else {
+          cvName.hidden = true;
+          cvName.textContent = "";
+        }
+      });
+
+      function validate() {
+        let ok = true;
+        const requiredIds = ["first_name", "last_name", "email", "phone"];
+
+        requiredIds.forEach((id) => {
+          const el = document.getElementById(id);
+          const field = el.closest(".field");
+          const value = el.value.trim();
+          let valid = value.length > 0;
+          if (id === "email") valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+          field.classList.toggle("is-invalid", !valid);
+          if (!valid) ok = false;
+        });
+
+        const cvField = cvInput.closest(".field");
+        const file = cvInput.files && cvInput.files[0];
+        let cvOk = !!file;
+        if (file && file.size > 5 * 1024 * 1024) {
+          cvOk = false;
+          document.getElementById("cv-error").textContent = t("apply.cvTooLarge") || "File must be 5 MB or smaller.";
+        } else {
+          document.getElementById("cv-error").textContent = t("apply.cvRequired");
+        }
+        cvField.classList.toggle("is-invalid", !cvOk);
+        if (!cvOk) ok = false;
+
+        return ok;
+      }
+
+      form.addEventListener("submit", (e) => {
+        if (!validate()) {
+          e.preventDefault();
+          const firstInvalid = form.querySelector(".field.is-invalid");
+          if (firstInvalid) firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

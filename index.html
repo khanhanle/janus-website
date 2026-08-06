@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JANUS SYSTEM</title>
+  <meta name="description" content="JANUS SYSTEM" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;1,8..60,500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0c1f2e;
+      --ink-soft: #1a3348;
+      --sea: #1a6b7a;
+      --sea-deep: #0e4552;
+      --foam: #e8f2f4;
+      --mist: #b8d4da;
+      --sand: #d4a574;
+      --sand-bright: #e8c49a;
+      --white: #f7fafb;
+      --muted: rgba(12, 31, 46, 0.62);
+      --line: rgba(12, 31, 46, 0.12);
+      --font-display: "Source Serif 4", "Be Vietnam Pro", Georgia, serif;
+      --font-body: "Be Vietnam Pro", system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--foam);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* —— Nav —— */
+    .nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      letter-spacing: 0.02em;
+      color: var(--white);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(247, 250, 251, 0.35);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .lang-btn {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: rgba(247, 250, 251, 0.7);
+      background: transparent;
+      border: none;
+      padding: 0.5rem 0.55rem;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-btn + .lang-btn {
+      border-left: 1px solid rgba(247, 250, 251, 0.35);
+    }
+
+    .lang-btn.is-active {
+      color: var(--ink);
+      background: var(--sand-bright);
+    }
+
+    .lang-btn:hover:not(.is-active) {
+      color: var(--white);
+      background: rgba(247, 250, 251, 0.08);
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(247, 250, 251, 0.88);
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(247, 250, 251, 0.35);
+      border-radius: 2px;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-link:hover {
+      background: rgba(247, 250, 251, 0.08);
+      border-color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .nav-cta {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--sand-bright);
+      padding: 0.55rem 1rem;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--sand);
+      transform: translateY(-1px);
+    }
+
+    /* —— Contact drawer —— */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      background: rgba(12, 31, 46, 0.45);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .drawer-backdrop.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .contact-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 50;
+      width: min(100%, 400px);
+      height: 100%;
+      background:
+        linear-gradient(180deg, rgba(232, 242, 244, 0.97), var(--foam)),
+        var(--foam);
+      box-shadow: -16px 0 48px rgba(12, 31, 46, 0.18);
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+
+    .contact-drawer.is-open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+      padding-top: 0.25rem;
+    }
+
+    .drawer-header h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .drawer-close {
+      font-family: var(--font-body);
+      font-size: 1.5rem;
+      line-height: 1;
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      width: 2.25rem;
+      height: 2.25rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .drawer-close:hover {
+      background: rgba(12, 31, 46, 0.05);
+      border-color: rgba(12, 31, 46, 0.28);
+    }
+
+    .drawer-form {
+      display: grid;
+      gap: 1.15rem;
+    }
+
+    .drawer-field {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .drawer-field label {
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .drawer-field .req {
+      color: var(--sea);
+    }
+
+    .drawer-field input,
+    .drawer-field textarea {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      padding: 0.75rem 0.85rem;
+      width: 100%;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .drawer-field textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .drawer-field input:focus,
+    .drawer-field textarea:focus {
+      outline: none;
+      border-color: var(--sea);
+      box-shadow: 0 0 0 3px rgba(26, 107, 122, 0.15);
+    }
+
+    .drawer-field.is-invalid input,
+    .drawer-field.is-invalid textarea {
+      border-color: #9b2c2c;
+    }
+
+    .drawer-error {
+      display: none;
+      font-size: 0.8rem;
+      color: #9b2c2c;
+    }
+
+    .drawer-field.is-invalid .drawer-error {
+      display: block;
+    }
+
+    .drawer-submit {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--sand-bright);
+      border: none;
+      border-radius: 2px;
+      padding: 0.85rem 1.25rem;
+      cursor: pointer;
+      transition: background 0.25s ease, transform 0.25s ease;
+      margin-top: 0.25rem;
+    }
+
+    .drawer-submit:hover {
+      background: var(--sand);
+      transform: translateY(-1px);
+    }
+
+    .drawer-success {
+      display: none;
+      padding: 1rem 0;
+    }
+
+    .drawer-success.is-visible {
+      display: block;
+    }
+
+    .drawer-success p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .drawer-form.is-sent {
+      display: none;
+    }
+
+    body.drawer-open {
+      overflow: hidden;
+    }
+
+    /* —— Hero —— */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      color: var(--white);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(12, 31, 46, 0.25) 0%,
+          rgba(12, 31, 46, 0.55) 45%,
+          rgba(12, 31, 46, 0.88) 100%
+        ),
+        linear-gradient(
+          115deg,
+          var(--sea-deep) 0%,
+          var(--ink) 42%,
+          #163a4a 70%,
+          var(--sea) 100%
+        );
+      background-size: cover;
+    }
+
+    /* Horizon / water plane as the visual anchor */
+    .hero-horizon {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hero-horizon::before {
+      content: "";
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: 18%;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(232, 196, 154, 0.55) 20%,
+        rgba(232, 242, 244, 0.7) 50%,
+        rgba(232, 196, 154, 0.55) 80%,
+        transparent
+      );
+      animation: horizon-glow 6s ease-in-out infinite alternate;
+    }
+
+    .wave {
+      position: absolute;
+      left: -5%;
+      width: 110%;
+      height: 42%;
+      bottom: -8%;
+      border-radius: 45% 55% 0 0;
+      opacity: 0.18;
+      background: linear-gradient(180deg, rgba(184, 212, 218, 0.5), transparent 70%);
+      animation: wave-drift 14s ease-in-out infinite alternate;
+    }
+
+    .wave:nth-child(2) {
+      height: 36%;
+      bottom: -12%;
+      opacity: 0.28;
+      animation-duration: 18s;
+      animation-delay: -4s;
+    }
+
+    .wave:nth-child(3) {
+      height: 28%;
+      bottom: -16%;
+      opacity: 0.4;
+      background: linear-gradient(180deg, rgba(26, 107, 122, 0.6), rgba(12, 31, 46, 0.9));
+      animation-duration: 22s;
+      animation-delay: -8s;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1.5rem 4.5rem;
+    }
+
+    .brand {
+      font-family: var(--font-display);
+      font-size: clamp(2.75rem, 10vw, 6.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: rise 0.9s ease forwards 0.15s;
+    }
+
+    .headline {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3.2vw, 2rem);
+      font-weight: 400;
+      font-style: italic;
+      max-width: 18ch;
+      line-height: 1.2;
+      margin-bottom: 0.85rem;
+      color: var(--sand-bright);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: rise 0.9s ease forwards 0.35s;
+    }
+
+    .lede {
+      font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+      max-width: 36ch;
+      color: rgba(247, 250, 251, 0.82);
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: rise 0.9s ease forwards 0.5s;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: rise 0.9s ease forwards 0.65s;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      padding: 0.8rem 1.35rem;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--sand-bright);
+      color: var(--ink);
+    }
+
+    .btn-primary:hover {
+      background: var(--sand);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(247, 250, 251, 0.35);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--white);
+      background: rgba(247, 250, 251, 0.08);
+    }
+
+    /* —— Sections —— */
+    section {
+      padding: clamp(4rem, 10vw, 7rem) 1.5rem;
+    }
+
+    .section-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .section-wide {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sea);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+
+    .section-copy {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 42ch;
+    }
+
+    /* Product / About — one purpose */
+    .product {
+      background:
+        radial-gradient(ellipse 80% 60% at 100% 0%, rgba(26, 107, 122, 0.12), transparent 55%),
+        var(--white);
+    }
+
+    .founder {
+      background: var(--white);
+      padding: clamp(3rem, 7vw, 4.5rem) 1.5rem 0;
+      text-align: center;
+    }
+
+    .founder-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem 3.5rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .founder-figure {
+      margin: 0;
+      width: 200px;
+      flex: 0 0 200px;
+    }
+
+    .founder-photo-frame {
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 2px;
+      background:
+        linear-gradient(160deg, var(--ink-soft), var(--sea-deep));
+    }
+
+    .founder-photo {
+      display: block;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    .founder-figure figcaption {
+      margin-top: 0.65rem;
+    }
+
+    .founder-name {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .founder-role {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    /* How it works — one purpose */
+    .how {
+      background: var(--foam);
+      border-top: 1px solid var(--line);
+    }
+
+    .steps {
+      margin-top: 2.5rem;
+      display: grid;
+      gap: 2rem;
+    }
+
+    @media (min-width: 720px) {
+      .steps {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+      }
+    }
+
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--sea);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .step h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .step p {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    /* CTA band */
+    .close {
+      background: var(--ink);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .close h2 {
+      max-width: 16ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .close .section-copy {
+      color: rgba(247, 250, 251, 0.7);
+      margin: 0 auto 1.75rem;
+    }
+
+    .close .btn-primary {
+      background: var(--sand-bright);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--ink);
+      color: rgba(247, 250, 251, 0.5);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.8125rem;
+      border-top: 1px solid rgba(247, 250, 251, 0.08);
+    }
+
+    footer strong {
+      font-family: var(--font-display);
+      font-weight: 400;
+      color: rgba(247, 250, 251, 0.85);
+    }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes wave-drift {
+      from { transform: translateX(-2%) scaleY(1); }
+      to { transform: translateX(2%) scaleY(1.06); }
+    }
+
+    @keyframes horizon-glow {
+      from { opacity: 0.55; }
+      to { opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .brand, .headline, .lede, .cta-row {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body data-page-title="page.title.home">
+  <header class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+
+    <nav class="nav">
+      <a class="nav-brand" href="index.html">JANUS SYSTEM</a>
+      <div class="nav-actions">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" class="lang-btn" data-lang="vn" aria-pressed="false">VN</button>
+        </div>
+        <a class="nav-link" href="careers.html" data-i18n="nav.careers">Join us</a>
+        <button type="button" class="nav-cta" data-open-contact data-i18n="nav.cta">Contact</button>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <p class="brand">JANUS SYSTEM</p>
+      <h1 class="headline" data-i18n="home.headline">some moto</h1>
+    </div>
+  </header>
+
+  <section class="product" id="product">
+    <div class="section-wide">
+      <h2 data-i18n="home.aboutTitle">About us</h2>
+      <p class="section-copy" data-i18n="home.aboutCopy">
+        Some basic info about the company/startup here
+      </p>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="section-wide">
+      <h2 data-i18n="home.howTitle">What we do</h2>
+      <div class="steps">
+        <div class="step">
+          <p class="step-num">01</p>
+          <h3 data-i18n="home.step1Title">small headline</h3>
+          <p data-i18n="home.step1Copy">info to small headline</p>
+        </div>
+        <div class="step">
+          <p class="step-num">02</p>
+          <h3 data-i18n="home.step2Title">small headline</h3>
+          <p data-i18n="home.step2Copy">info to small headline</p>
+        </div>
+        <div class="step">
+          <p class="step-num">03</p>
+          <h3 data-i18n="home.step3Title">small headline</h3>
+          <p data-i18n="home.step3Copy">info to small headline</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="founder" id="founder" aria-label="Founders">
+    <div class="founder-row">
+      <figure class="founder-figure">
+        <div class="founder-photo-frame">
+          <img
+            class="founder-photo"
+            src="images/founder-1.jpg"
+            alt=""
+            data-i18n-aria="home.founder1Alt"
+            width="200"
+            height="200"
+          />
+        </div>
+        <figcaption>
+          <p class="founder-name" data-i18n="home.founder1Name">Founder Name</p>
+          <p class="founder-role" data-i18n="home.founder1Role">Founder</p>
+        </figcaption>
+      </figure>
+      <figure class="founder-figure">
+        <div class="founder-photo-frame">
+          <img
+            class="founder-photo"
+            src="images/founder-2.jpg"
+            alt=""
+            data-i18n-aria="home.founder2Alt"
+            width="200"
+            height="200"
+          />
+        </div>
+        <figcaption>
+          <p class="founder-name" data-i18n="home.founder2Name">Founder Name</p>
+          <p class="founder-role" data-i18n="home.founder2Role">Founder</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="close" id="contact">
+    <div class="section-inner">
+      <h2 data-i18n="home.contactTitle">contact info</h2>
+      <p class="section-copy" data-i18n="home.contactCopy">email address name etc</p>
+      <button type="button" class="btn btn-primary" data-open-contact data-i18n="nav.cta">Contact</button>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>JANUS SYSTEM</strong> · <a href="careers.html" data-i18n="home.footerCareers">Careers</a></p>
+  </footer>
+
+  <div class="drawer-backdrop" id="contact-backdrop" hidden></div>
+  <aside class="contact-drawer" id="contact-drawer" aria-hidden="true" aria-labelledby="contact-drawer-title">
+    <div class="drawer-header">
+      <h2 id="contact-drawer-title" data-i18n="contact.drawerTitle">Get in touch</h2>
+      <button type="button" class="drawer-close" data-close-contact aria-label="Close">&times;</button>
+    </div>
+
+    <div class="drawer-success" id="contact-success">
+      <p data-i18n="contact.success">Thanks — your message was sent. We’ll reply by email.</p>
+      <button type="button" class="drawer-submit" data-close-contact data-i18n="contact.close">Close</button>
+    </div>
+
+    <!-- Replace email below with your real company inbox. Confirm once via FormSubmit. -->
+    <form
+      class="drawer-form"
+      id="contact-form"
+      action="https://formsubmit.co/example@mail.com"
+      method="POST"
+      novalidate
+    >
+      <input type="hidden" name="_subject" value="JANUS SYSTEM — Contact message" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" id="contact-next" value="" />
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
+      <div class="drawer-field" data-field="name">
+        <label for="contact-name"><span data-i18n="contact.name">Name</span> <span class="req">*</span></label>
+        <input id="contact-name" name="name" type="text" autocomplete="name" required />
+        <p class="drawer-error" data-i18n="apply.required">This field is required.</p>
+      </div>
+
+      <div class="drawer-field" data-field="email">
+        <label for="contact-email"><span data-i18n="contact.email">Email</span> <span class="req">*</span></label>
+        <input id="contact-email" name="email" type="email" autocomplete="email" required />
+        <p class="drawer-error" data-i18n="apply.emailInvalid">Enter a valid email address.</p>
+      </div>
+
+      <div class="drawer-field" data-field="message">
+        <label for="contact-message"><span data-i18n="contact.message">Message</span> <span class="req">*</span></label>
+        <textarea id="contact-message" name="message" required data-i18n-placeholder="contact.messagePh" placeholder="How can we help?"></textarea>
+        <p class="drawer-error" data-i18n="apply.required">This field is required.</p>
+      </div>
+
+      <button type="submit" class="drawer-submit" data-i18n="contact.send">Send message</button>
+    </form>
+  </aside>
+
+  <script src="language.js"></script>
+  <script>
+    (function () {
+      const drawer = document.getElementById("contact-drawer");
+      const backdrop = document.getElementById("contact-backdrop");
+      const form = document.getElementById("contact-form");
+      const success = document.getElementById("contact-success");
+      const nextField = document.getElementById("contact-next");
+
+      try {
+        const nextUrl = new URL(window.location.href);
+        nextUrl.hash = "";
+        nextUrl.search = "?contact=sent";
+        nextField.value = nextUrl.toString();
+      } catch (_) {
+        nextField.value = "index.html?contact=sent";
+      }
+
+      function openDrawer() {
+        drawer.classList.add("is-open");
+        backdrop.classList.add("is-open");
+        backdrop.hidden = false;
+        drawer.setAttribute("aria-hidden", "false");
+        document.body.classList.add("drawer-open");
+        const name = document.getElementById("contact-name");
+        if (name) name.focus();
+      }
+
+      function closeDrawer() {
+        drawer.classList.remove("is-open");
+        backdrop.classList.remove("is-open");
+        drawer.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("drawer-open");
+        setTimeout(() => {
+          if (!drawer.classList.contains("is-open")) backdrop.hidden = true;
+        }, 300);
+      }
+
+      document.querySelectorAll("[data-open-contact]").forEach((el) => {
+        el.addEventListener("click", (e) => {
+          e.preventDefault();
+          openDrawer();
+        });
+      });
+
+      document.querySelectorAll("[data-close-contact]").forEach((el) => {
+        el.addEventListener("click", closeDrawer);
+      });
+
+      backdrop.addEventListener("click", closeDrawer);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && drawer.classList.contains("is-open")) closeDrawer();
+      });
+
+      if (new URLSearchParams(window.location.search).get("contact") === "sent") {
+        form.classList.add("is-sent");
+        success.classList.add("is-visible");
+        openDrawer();
+        history.replaceState({}, "", window.location.pathname);
+      }
+
+      form.addEventListener("submit", (e) => {
+        let ok = true;
+        const name = document.getElementById("contact-name");
+        const email = document.getElementById("contact-email");
+        const message = document.getElementById("contact-message");
+
+        const nameValid = name.value.trim().length > 0;
+        name.closest(".drawer-field").classList.toggle("is-invalid", !nameValid);
+        if (!nameValid) ok = false;
+
+        const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+        email.closest(".drawer-field").classList.toggle("is-invalid", !emailValid);
+        if (!emailValid) ok = false;
+
+        const messageValid = message.value.trim().length > 0;
+        message.closest(".drawer-field").classList.toggle("is-invalid", !messageValid);
+        if (!messageValid) ok = false;
+
+        if (!ok) e.preventDefault();
+      });
+    })();
+  </script>
+</body>
+</html>
